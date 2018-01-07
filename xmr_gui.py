@@ -17,7 +17,7 @@ def create_config(pool_address, wallet_address, pool_password):
 			'"use_nicehash" : false,' \
 			'"use_tls" : false,' \
 			'"tls_fingerprint" : "",' \
-			'"pool_weight" : 1 }},' \
+			'"pool_weight" : 1 }}' \
 		'],' \
 		'"currency" : "monero",' \
 		'"call_timeout" : 10,' \
@@ -35,7 +35,7 @@ def create_config(pool_address, wallet_address, pool_password):
 		'"httpd_port" : 0,' \
 		'"http_login" : "",' \
 		'"http_pass" : "",' \
-		'"prefer_ipv4" : true,' \
+		'"prefer_ipv4" : true' \
 		''.format(pool_address, wallet_address, pool_password))
 	config_file.write('')
 	config_file.close()
@@ -96,6 +96,18 @@ class ConfigWidget(QWidget):
 		self.pool_address_edit = QLineEdit()
 		self.wallet_address_edit = QLineEdit()
 		self.pool_password_edit = QLineEdit()
+		#Check for existing config
+		try:
+			existing_config_file = open('config.txt', 'r')
+			existing_config = json.loads('{' + existing_config_file.read() + '}')
+			existing_pool_address = existing_config['pool_list'][0]['pool_address']
+			existing_wallet_address = existing_config['pool_list'][0]['wallet_address']
+			existing_pool_password = existing_config['pool_list'][0]['pool_password']
+			self.pool_address_edit.setText(existing_pool_address)
+			self.wallet_address_edit.setText(existing_wallet_address)
+			self.pool_password_edit.setText(existing_pool_password)
+		except FileNotFoundError:
+			pass
 		#Start button
 		self.start_button = QPushButton('Start Miner', self)
 		self.start_button.clicked.connect(self.start_miner)
