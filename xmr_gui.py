@@ -92,9 +92,15 @@ class Miner():
 
 	def start(self):
 		popen_process = subprocess.Popen('xmr-stak.exe')
-		time.sleep(5)
+		self.wait_for_output()
 		self.parent_process = psutil.Process(popen_process.pid)
 		self.child_process = self.parent_process.children()[0]
+
+	def wait_for_output(self):
+		while True:
+			time.sleep(1)
+			if self.output_file.read():
+				break
 
 class ConfigWidget(QWidget):
 	def __init__(self, parent=None):
