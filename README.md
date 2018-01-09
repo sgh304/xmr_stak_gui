@@ -1,5 +1,5 @@
 # XMR-Stak GUI
-![Screenshot](https://i.imgur.com/CiZdc8C.png)
+![Screenshot](https://i.imgur.com/heblsd9.png)
 
 A simple, slightly-better-looking GUI for XMR-Stak built with PyQt5.
 ## XMR-Stak
